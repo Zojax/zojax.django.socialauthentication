@@ -1,0 +1,17 @@
+{% if ENABLE_TWITTER_AUTH %}
+<ul>
+<li><a href="{% url twitter_login %}">Twitter</a></li>
+</ul>
+{% endif %}
+{% if ENABLE_FACEBOOK_AUTH %}
+<ul>
+<li><a href="{% url facebook_login %}">Facebook</a></li>
+</ul>
+{% endif %}
+{% if ENABLE_OPENID_AUTH %}
+<form method="post" action="{% url openid_login %}">
+  <label for="openid_identifier">OpenID</label>
+  <input type="text" name="openid_identifier" />
+  <input type="submit" />
+</form>
+{% endif %}

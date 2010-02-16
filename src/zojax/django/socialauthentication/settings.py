@@ -1,0 +1,17 @@
+from django.conf import settings
+
+ENABLE_OPENID_AUTH = getattr(settings, 'ENABLE_TWITER_AUTH', True)
+ENABLE_TWITTER_AUTH = getattr(settings, 'ENABLE_TWITER_AUTH', True)
+ENABLE_FACEBOOK_AUTH = getattr(settings, 'ENABLE_FACEBOOK_AUTH', True)
+
+TWITTER_CONSUMER_KEY = getattr(settings, 'TWITTER_CONSUMER_KEY', "")
+TWITTER_CONSUMER_SECRET = getattr(settings, 'TWITTER_CONSUMER_SECRET', "")
+
+if not TWITTER_CONSUMER_KEY or not TWITTER_CONSUMER_SECRET:
+    ENABLE_TWITTER_AUTH = False
+
+FACEBOOK_API_KEY = getattr(settings, 'FACEBOOK_API_KEY', "")
+FACEBOOK_API_SECRET = getattr(settings, 'FACEBOOK_API_SECRET', "")
+
+if not FACEBOOK_API_KEY or not FACEBOOK_API_SECRET:
+    ENABLE_FACEBOOK_AUTH = False
