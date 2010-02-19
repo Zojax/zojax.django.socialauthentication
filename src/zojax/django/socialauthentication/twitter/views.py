@@ -42,7 +42,7 @@ def twitter_done(request):
     access_token = twitter.getAccessToken()
     
     request.session['access_token'] = access_token.to_string()
-    user = authenticate(twitter_access_token=access_token)
+    user = authenticate(request=request, twitter_access_token=access_token)
     
     # if user is authenticated then login user
     if user:
@@ -55,5 +55,5 @@ def twitter_done(request):
         return HttpResponseRedirect(reverse('auth_login'))
  
     # authentication was successful, use is now logged in
-    return HttpResponseRedirect(getattr(settings, "LOGIN_NEXT_URL", "/"))
+    return HttpResponseRedirect(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
         

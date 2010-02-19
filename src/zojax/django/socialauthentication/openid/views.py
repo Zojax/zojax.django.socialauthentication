@@ -135,10 +135,10 @@ def done(request, provider=None):
         #check for already existing associations
         identifier = str(request.openid)
         #authenticate and login
-        user = authenticate(identifier=identifier, openid=request.openid, provider=provider)
+        user = authenticate(request=request, identifier=identifier, openid=request.openid, provider=provider)
         if user:
             login(request, user)
-            return HttpResponseRedirect(getattr(settings, "LOGIN_NEXT_URL", "/"))
+            return HttpResponseRedirect(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
         else:
             return HttpResponseRedirect(reverse("auth_login"))
     else:

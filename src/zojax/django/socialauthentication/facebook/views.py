@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.settings import FACEBOOK_API_KEY
 import urllib
-from django.shortcuts import render_to_response
  
  
 def facebook_login(request):
@@ -39,5 +38,5 @@ def facebook_done(request):
             del request.COOKIES[FACEBOOK_API_KEY + '_user']
         return HttpResponseRedirect(reverse('auth_login'))
  
-    return HttpResponseRedirect(getattr(settings, "LOGIN_NEXT_URL", "/"))
+    return HttpResponseRedirect(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
         

@@ -1,13 +1,16 @@
-import random
 from django.contrib.auth.models import User
+from registration import signals
+from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.models import OpenIdAccount, AuthMeta
 from zojax.django.socialauthentication.openid.utils import OpenID
-from zojax.django.socialauthentication import settings
+import random
 
 
 class OpenIdBackend:
     
-    def authenticate(self, identifier=None, openid=None, provider=None):
+    def authenticate(self, request=None, identifier=None, openid=None, provider=None):
+        if request is None:
+            return None
         if not settings.ENABLE_OPENID_AUTH:
             return None
         if not identifier or not openid or not provider:
@@ -58,6 +61,11 @@ class OpenIdBackend:
             #Create AuthMeta
             auth_meta = AuthMeta(user = user, provider = provider)
             auth_meta.save()
+            
+            signals.user_registered.send(sender=self.__class__,
+                                         user=user,
+                                         request=request)
+
             return user
     
     def get_user(self, user_id):

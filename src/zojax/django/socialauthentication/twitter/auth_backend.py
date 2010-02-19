@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from registration import signals
 from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.models import AuthMeta, TwitterAccount
 from zojax.django.socialauthentication.twitter import oauthtwitter
@@ -7,9 +8,11 @@ from zojax.django.socialauthentication.twitter import oauthtwitter
 class TwitterBackend:
     """TwitterBackend for authentication
     """
-    def authenticate(self, twitter_access_token=None):
+    def authenticate(self, request=None, twitter_access_token=None):
         '''authenticates the token by requesting user information from twitter
         '''
+        if request is None:
+            return None
         if not settings.ENABLE_TWITTER_AUTH:
             return None
         if not twitter_access_token:
@@ -50,6 +53,9 @@ class TwitterBackend:
             # userprofile.access_token = access_token.key
             account.save()
             auth_meta = AuthMeta(user=user, provider='Twitter').save()
+            signals.user_registered.send(sender=self.__class__,
+                                         user=user,
+                                         request=request)
             return user
  
     def get_user(self, user_id):

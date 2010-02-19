@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
+from registration import signals
+from zojax.django.socialauthentication.facebook.facebook import \
+    getFacebookUserId, getFacebookUserInfo
 from zojax.django.socialauthentication.models import AuthMeta, FacebookAccount
 from zojax.django.socialauthentication.settings import ENABLE_FACEBOOK_AUTH
-from zojax.django.socialauthentication.facebook.facebook import getFacebookUserId,\
-    getFacebookUserInfo
 import random
 
 
@@ -60,6 +61,10 @@ class FacebookBackend:
             
             auth_meta = AuthMeta(user=user, provider='Facebook')
             auth_meta.save()
+            
+            signals.user_registered.send(sender=self.__class__,
+                                         user=user,
+                                         request=request)
             return user
         
         return None
