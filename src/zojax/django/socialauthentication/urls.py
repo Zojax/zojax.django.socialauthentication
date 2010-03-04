@@ -7,17 +7,17 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="auth_logout"),                       
 )
 
-if settings.ENABLE_OPENID_AUTH:
+if settings.ENABLE_OPENID_REGISTRATION:
     urlpatterns += patterns('',
         (r'^openid/', include('zojax.django.socialauthentication.openid.urls')),
     )
 
-if settings.ENABLE_TWITTER_AUTH:
+if settings.ENABLE_TWITTER_REGISTRATION:
     urlpatterns += patterns('',
         (r'^twitter/', include('zojax.django.socialauthentication.twitter.urls')),
     )
 
-if settings.ENABLE_FACEBOOK_AUTH:
+if settings.ENABLE_FACEBOOK_REGISTRATION:
     urlpatterns += patterns('',
         (r'^facebook/', include('zojax.django.socialauthentication.facebook.urls')),
     )
