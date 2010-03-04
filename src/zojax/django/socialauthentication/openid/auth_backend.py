@@ -11,7 +11,7 @@ class OpenIdBackend:
     def authenticate(self, request=None, identifier=None, openid=None, provider=None):
         if request is None:
             return None
-        if not settings.ENABLE_OPENID_AUTH:
+        if not settings.ENABLE_OPENID_REGISTRATION:
             return None
         if not identifier or not openid or not provider:
             return None

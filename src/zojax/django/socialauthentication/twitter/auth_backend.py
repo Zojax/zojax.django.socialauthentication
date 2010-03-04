@@ -13,7 +13,7 @@ class TwitterBackend:
         '''
         if request is None:
             return None
-        if not settings.ENABLE_TWITTER_AUTH:
+        if not settings.ENABLE_TWITTER_REGISTRATION:
             return None
         if not twitter_access_token:
             return None

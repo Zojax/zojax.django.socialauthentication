@@ -1,14 +1,14 @@
-{% if ENABLE_TWITTER_AUTH %}
+{% if ENABLE_TWITTER_REGISTRATION %}
 <ul>
 <li><a href="{% url twitter_login %}">Twitter</a></li>
 </ul>
 {% endif %}
-{% if ENABLE_FACEBOOK_AUTH %}
+{% if ENABLE_FACEBOOK_REGISTRATION %}
 <ul>
 <li><a href="{% url facebook_login %}">Facebook</a></li>
 </ul>
 {% endif %}
-{% if ENABLE_OPENID_AUTH %}
+{% if ENABLE_OPENID_REGISTRATION %}
 <form method="post" action="{% url openid_login %}">
   <label for="openid_identifier">OpenID</label>
   <input type="text" name="openid_identifier" />

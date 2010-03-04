@@ -3,7 +3,7 @@ from registration import signals
 from zojax.django.socialauthentication.facebook.facebook import \
     getFacebookUserId, getFacebookUserInfo
 from zojax.django.socialauthentication.models import AuthMeta, FacebookAccount
-from zojax.django.socialauthentication.settings import ENABLE_FACEBOOK_AUTH
+from zojax.django.socialauthentication.settings import ENABLE_FACEBOOK_REGISTRATION
 import random
 
 
@@ -14,7 +14,7 @@ class FacebookBackend:
         if not request:
             return None
         
-        if not ENABLE_FACEBOOK_AUTH:
+        if not ENABLE_FACEBOOK_REGISTRATION:
             return None
         
         fb_user = getFacebookUserId(request)
