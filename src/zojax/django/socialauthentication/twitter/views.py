@@ -1,13 +1,15 @@
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.twitter import oauthtwitter
 from oauth.oauth import OAuthToken
+from zojax.django.socialauthentication.settings import TWITTER_CONSUMER_KEY,\
+    TWITTER_CONSUMER_SECRET
+from django.conf import settings
  
  
 def twitter_login(request):
-    twitter = oauthtwitter.OAuthApi(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+    twitter = oauthtwitter.OAuthApi(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
     request_token = twitter.getRequestToken()  
     request.session['request_token'] = request_token.to_string()
     signin_url = twitter.getSigninURL(request_token)  

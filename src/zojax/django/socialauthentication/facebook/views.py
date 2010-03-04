@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.settings import FACEBOOK_API_KEY
 import urllib
+from django.conf import settings
  
  
 def facebook_login(request):
