@@ -161,7 +161,7 @@ def on_success(request, identity_url, openid_response):
     return HttpResponseRedirect(reverse("openid_done"))
  
  
-def on_failure(request, message):
-    return render_to_response('auth/openid_failure.html', {
+def on_failure(request, message, failure_template='auth/openid_failure.html'):
+    return render_to_response(failure_template, {
                         'message': message
                         }, RequestContext(request))    
