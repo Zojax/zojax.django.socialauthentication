@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.utils.html import escape
+from django.utils.translation import ugettext_lazy as _
 from middleware import OpenIdMiddleware
 from openid.consumer.consumer import Consumer, SUCCESS, CANCEL, FAILURE, \
     SETUP_NEEDED
@@ -14,6 +15,7 @@ from openid.extensions.sreg import SRegRequest
 from utils import DjangoOpenIDStore, from_openid_response
 from yadis import xri
 import re
+
  
  
 OPENID_SREG = {"requred": "nickname, email",
