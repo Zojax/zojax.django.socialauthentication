@@ -10,13 +10,11 @@ import random
 class FacebookBackend:
     
     def authenticate(self, request = None):
- 
         if not request:
             return None
         
         if not ENABLE_FACEBOOK_REGISTRATION:
             return None
-        
         fb_user = getFacebookUserId(request)
         
         if not fb_user:

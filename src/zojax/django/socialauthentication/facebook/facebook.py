@@ -17,7 +17,6 @@ def getFacebookSignatureHash(valuesDict, apiKey, apiSecret, isCookieCheck=False)
             signature_keys.append(key)
         elif (isCookieCheck is False):
             signature_keys.append(key)
-
     if (isCookieCheck):
         signature_string = ''.join(['%s=%s' % (x.replace(apiKey + '_',''), valuesDict[x]) for x in signature_keys])
     else:

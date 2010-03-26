@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from zojax.django.socialauthentication.settings import FACEBOOK_API_KEY
 import urllib
+import simplejson
 from django.conf import settings
  
  
@@ -25,9 +26,13 @@ def facebook_login(request):
  
  
 def facebook_done(request):
-
+    session = simplejson.loads(request.GET['session'])
+    request.COOKIES[FACEBOOK_API_KEY + '_ss'] = session['secret']
+    request.COOKIES[FACEBOOK_API_KEY + '_session_key'] = session['session_key']
+    request.COOKIES[FACEBOOK_API_KEY + '_user'] = session['uid']
+    request.COOKIES[FACEBOOK_API_KEY + '_expires'] = session['expires']
+    request.COOKIES[FACEBOOK_API_KEY] = session['sig']
     user = authenticate(request = request)
-
     if user:
         login(request, user)
     else:
