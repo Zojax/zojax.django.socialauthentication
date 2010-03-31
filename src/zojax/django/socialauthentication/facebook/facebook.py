@@ -45,7 +45,7 @@ def getFacebookUserInfo(facebook_id):
         'call_id': time.time(),
         'v': '1.0',
         'uids': facebook_id,
-        'fields': 'first_name,last_name,username',
+        'fields': 'first_name,last_name,username,pic_big,pic_small,current_location,hometown_location',
         'format': 'json',
     }
     params['sig'] = getFacebookSignatureHash(params, FACEBOOK_API_KEY, FACEBOOK_API_SECRET)

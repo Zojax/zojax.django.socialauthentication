@@ -30,7 +30,7 @@ class FacebookBackend:
             if not fb_data:
                 return None
  
-            username = fb_data.get('username')
+            username = fb_data.get('name')
             generate_username = False
             
             if username is None:
@@ -58,6 +58,11 @@ class FacebookBackend:
                 user.save()
             
             auth_meta = AuthMeta(user=user, provider='Facebook')
+            auth_meta.portrait = fb_data['pic_big']
+            auth_meta.avatar = fb_data['pic_small']
+            location = fb_data['current_location'] or fb_data['hometown_location']
+            if location:
+                auth_meta.location = '%(city)s, %(state)s, %(country)s'%location
             auth_meta.save()
             
             signals.user_registered.send(sender=self.__class__,

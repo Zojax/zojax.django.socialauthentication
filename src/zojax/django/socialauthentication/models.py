@@ -1,4 +1,5 @@
 from django.db import models
+from sorl.thumbnail.fields import ImageWithThumbnailsField, ThumbnailField
 from django.contrib.auth.models import User
 
 
@@ -12,6 +13,9 @@ class AuthMeta(models.Model):
     provider = models.CharField(max_length = 200)
     is_email_filled = models.BooleanField(default = False)
     is_profile_modified = models.BooleanField(default = False)
+    portrait = models.URLField(null=True, blank=True)
+    avatar = models.URLField(null=True, blank=True)
+    location = models.CharField(max_length = 300, null=True, blank=True)
     
     
 class OpenIdNonce(models.Model):

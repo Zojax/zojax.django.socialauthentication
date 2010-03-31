@@ -106,7 +106,6 @@ def from_openid_response(openid_response):
     issued = int(time.time())
  
     openid = OpenID(openid_response.identity_url, issued, openid_response.signed_fields)
- 
     if getattr(settings, 'OPENID_SREG', False):
         openid.sreg = SRegResponse.fromSuccessResponse(openid_response)
  

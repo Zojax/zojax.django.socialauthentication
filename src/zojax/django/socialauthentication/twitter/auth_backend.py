@@ -1,8 +1,12 @@
+import urllib
+import StringIO
+
 from django.contrib.auth.models import User
 from registration import signals
 from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.models import AuthMeta, TwitterAccount
 from zojax.django.socialauthentication.twitter import oauthtwitter
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class TwitterBackend:
@@ -26,7 +30,6 @@ class TwitterBackend:
  
         screen_name = userinfo.screen_name
         twitter_id = userinfo.id
-        
         try:
             account = TwitterAccount.objects.get(twitter_id = twitter_id)
             user = account.user
@@ -42,7 +45,7 @@ class TwitterBackend:
             name_data = userinfo.name.split()
             try:
                 first_name, last_name = name_data[0], ' '.join(name_data[1:])
-            except:
+            except IndexError:
                 first_name, last_name =  screen_name, ''
             user.first_name, user.last_name = first_name, last_name
             #user.email = '%s@example.twitter.com'%(userinfo.screen_name)
@@ -52,7 +55,11 @@ class TwitterBackend:
                               screen_name=screen_name)
             # userprofile.access_token = access_token.key
             account.save()
-            auth_meta = AuthMeta(user=user, provider='Twitter').save()
+            auth_meta = AuthMeta(user=user, provider='Twitter')
+            auth_meta.portrait = userinfo.profile_image_url
+            auth_meta.avatar = userinfo.profile_image_url
+            auth_meta.location = userinfo.location
+            auth_meta.save()
             signals.user_registered.send(sender=self.__class__,
                                          user=user,
                                          request=request)

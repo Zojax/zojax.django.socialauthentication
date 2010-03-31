@@ -29,7 +29,15 @@ OPENID_AX = [{"type_uri": "email",
              {"type_uri": "fullname",
               "count":1 ,
               "required": False,
-              "alias": "fullname"}]
+              "alias": "fullname"},
+             {"type_uri": "portrait",
+              "count":1 ,
+              "required": False,
+              "alias": "portrait"},
+             {"type_uri": "avatar",
+              "count":1 ,
+              "required": False,
+              "alias": "avatar"}]
 
 
 def get_trusted_root(request):
