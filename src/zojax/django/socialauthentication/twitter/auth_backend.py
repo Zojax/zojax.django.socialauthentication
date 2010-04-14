@@ -7,7 +7,7 @@ from zojax.django.socialauthentication import settings
 from zojax.django.socialauthentication.models import AuthMeta, TwitterAccount
 from zojax.django.socialauthentication.twitter import oauthtwitter
 from django.core.files.uploadedfile import SimpleUploadedFile
-
+import logging 
 
 class TwitterBackend:
     """TwitterBackend for authentication
@@ -27,6 +27,8 @@ class TwitterBackend:
         except:
             # If we cannot get the user information, user cannot be authenticated
             raise
+        
+        logging.warn(userinfo) 
         
         screen_name = userinfo.screen_name
         twitter_id = userinfo.id
