@@ -22,12 +22,14 @@ class TwitterBackend:
         if not twitter_access_token:
             return None
         twitter = oauthtwitter.OAuthApi(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, twitter_access_token)
-        return None
         try:
             userinfo = twitter.GetUserInfo()
         except:
             # If we cannot get the user information, user cannot be authenticated
             raise
+        
+        return None
+
  
         screen_name = userinfo.screen_name
         twitter_id = userinfo.id
