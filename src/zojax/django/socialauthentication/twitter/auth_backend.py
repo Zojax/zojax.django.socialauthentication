@@ -25,6 +25,7 @@ class TwitterBackend:
         try:
             userinfo = twitter.GetUserInfo()
         except:
+            return None
             # If we cannot get the user information, user cannot be authenticated
             raise
  
