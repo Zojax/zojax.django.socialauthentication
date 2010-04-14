@@ -28,8 +28,6 @@ class TwitterBackend:
             # If we cannot get the user information, user cannot be authenticated
             raise
         
-        logging.warn(userinfo) 
-        
         screen_name = userinfo.screen_name
         twitter_id = userinfo.id
         try:
