@@ -15,6 +15,7 @@ class TwitterBackend:
     def authenticate(self, request=None, twitter_access_token=None):
         '''authenticates the token by requesting user information from twitter
         '''
+        return None
         if request is None:
             return None
         if not settings.ENABLE_TWITTER_REGISTRATION:
@@ -25,7 +26,6 @@ class TwitterBackend:
         try:
             userinfo = twitter.GetUserInfo()
         except:
-            return None
             # If we cannot get the user information, user cannot be authenticated
             raise
  
