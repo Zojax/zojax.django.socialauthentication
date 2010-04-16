@@ -38,7 +38,7 @@ def twitter_done(request):
     if token.key != request.GET.get('oauth_token', 'no-token'):
         del request.session['request_token']
         # Redirect the user to the login page
-        return HttpResponseRedirect(reverse("socialauth_login_page"))
+        return HttpResponseRedirect(reverse("auth_login"))
     
     twitter = oauthtwitter.OAuthApi(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, token)  
     access_token = twitter.getAccessToken()
