@@ -1,13 +1,10 @@
 from django.contrib import admin
-from django.contrib.sites.models import RequestSite
-from django.contrib.sites.models import Site
-from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-
-from django.utils.translation import ugettext_lazy as _
-
-from models import TwitterAccount, FacebookAccount, OpenIdAccount, AuthMeta
+from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
+from models import TwitterAccount, FacebookAccount, OpenIdAccount, AuthMeta
+
 
 admin.site.register([TwitterAccount, FacebookAccount, OpenIdAccount, AuthMeta])
 
