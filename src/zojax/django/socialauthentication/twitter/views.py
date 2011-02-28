@@ -6,9 +6,11 @@ from oauth.oauth import OAuthToken
 from zojax.django.socialauthentication.settings import TWITTER_CONSUMER_KEY,\
     TWITTER_CONSUMER_SECRET
 from django.conf import settings
+import urlparse
  
  
 def twitter_login(request):
+    request.session['request_referer'] = urlparse.urljoin(request.META.get('HTTP_REFERER', ''), '/')
     twitter = oauthtwitter.OAuthApi(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
     request_token = twitter.getRequestToken()  
     request.session['request_token'] = request_token.to_string()
@@ -57,5 +59,10 @@ def twitter_done(request):
         return HttpResponseRedirect(reverse('auth_login'))
  
     # authentication was successful, use is now logged in
-    return HttpResponseRedirect(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
+    referer = request.session.get('request_referer')
+    next_url = str(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
+    if referer:
+        next_url = urlparse.urljoin(referer, next_url)
+        del request.session['request_referer']
+    return HttpResponseRedirect(next_url)
         

@@ -5,10 +5,11 @@ from zojax.django.socialauthentication.settings import FACEBOOK_API_KEY
 import urllib
 import simplejson
 from django.conf import settings
+import urlparse
  
  
 def facebook_login(request):
- 
+    request.session['request_referer'] = urlparse.urljoin(request.META.get('HTTP_REFERER', ''), '/')
     params = {}
     params["api_key"] = FACEBOOK_API_KEY
     params["extern"] = "1"
@@ -42,6 +43,11 @@ def facebook_done(request):
         if FACEBOOK_API_KEY + '_user' in request.COOKIES:    
             del request.COOKIES[FACEBOOK_API_KEY + '_user']
         return HttpResponseRedirect(reverse('auth_login'))
- 
-    return HttpResponseRedirect(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
+    
+    referer = request.session.get('request_referer')
+    next_url = str(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
+    if referer:
+        next_url = urlparse.urljoin(referer, next_url)
+        del request.session['request_referer']
+    return HttpResponseRedirect(next_url)
         

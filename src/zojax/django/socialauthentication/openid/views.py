@@ -15,6 +15,7 @@ from openid.extensions.sreg import SRegRequest
 from utils import DjangoOpenIDStore, from_openid_response
 from yadis import xri
 import re
+import urlparse
 
  
  
@@ -79,6 +80,7 @@ def yahoo_login(request):
 
 
 def begin(request, openid_url):
+    request.session['request_referer'] = urlparse.urljoin(request.META.get('HTTP_REFERER', ''), '/')
     
     consumer = Consumer(request.session, DjangoOpenIDStore())
  
@@ -148,7 +150,12 @@ def done(request, provider=None):
         user = authenticate(request=request, identifier=identifier, openid=request.openid, provider=provider)
         if user:
             login(request, user)
-            return HttpResponseRedirect(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
+            referer = request.session.get('request_referer')
+            next_url = str(getattr(settings, "LOGIN_REDIRECT_URL", "/"))
+            if referer:
+                next_url = urlparse.urljoin(referer, next_url)
+                del request.session['request_referer']
+            return HttpResponseRedirect(next_url)
         else:
             return HttpResponseRedirect(reverse("auth_login"))
     else:
