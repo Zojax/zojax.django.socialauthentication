@@ -3,7 +3,7 @@ from zojax.django.socialauthentication import settings
 
 
 urlpatterns = patterns('',
-    url(r'^login/$', 'django.views.generic.simple.direct_to_template', {'template': 'auth/login.html'}, name="auth_login"),                       
+    url(r'^login/$', 'django.views.generic.simple.direct_to_template', {'template': 'registration/login.html'}, name="auth_login"),                       
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="auth_logout"),                       
 )
 
