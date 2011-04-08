@@ -30,6 +30,7 @@ setup(name='zojax.django.socialauthentication',
           'python-openid',
           'python-twitter',
           'oauth2',
+          'oauth',
           'simplejson',
           # -*- Extra requirements: -*-
       ],
