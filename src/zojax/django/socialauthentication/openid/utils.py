@@ -4,7 +4,7 @@ from openid.extensions.ax import FetchResponse as AXFetchResponse
 from openid.extensions.sreg import SRegResponse
 from openid.store import nonce as oid_nonce
 from openid.store.interface import OpenIDStore
-from yadis import xri
+from openid.yadis import xri
 from zojax.django.socialauthentication.models import OpenIdAssociation, \
     OpenIdNonce
 import time

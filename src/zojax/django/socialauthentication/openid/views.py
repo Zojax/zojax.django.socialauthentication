@@ -13,7 +13,7 @@ from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.ax import AttrInfo, FetchRequest as AXFetchRequest
 from openid.extensions.sreg import SRegRequest
 from utils import DjangoOpenIDStore, from_openid_response
-from yadis import xri
+from openid.yadis import xri
 import re
 import urlparse
 
