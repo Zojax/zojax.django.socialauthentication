@@ -28,9 +28,8 @@ setup(name='zojax.django.socialauthentication',
       install_requires=[
           'setuptools',
           'python-openid',
-          'python-yadis',
           'python-twitter',
-          'oauth',
+          'oauth2',
           'simplejson',
           # -*- Extra requirements: -*-
       ],
